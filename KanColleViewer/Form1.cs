@@ -22,6 +22,7 @@ namespace KanColleViewer
         Thread mediaplay;
         Image a2;
         Image a;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,20 +31,26 @@ namespace KanColleViewer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          
+           // int deskHeight = Screen.PrimaryScreen.Bounds.Height;
+           // int deskWidth = SystemInformation.PrimaryMonitorSize.Width;
+            
             Closing += new CancelEventHandler(Form1_Closing);
+            //   MessageBox.Show(deskHeight+"");
 
-               a=Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\wall\009.png");
-               a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\003.png");
-               Bitmap bmp = new Bitmap(a2,1000,1000);
-               Graphics g2 = Graphics.FromImage(bmp);
-               Graphics g = Graphics.FromImage(bmp);
-               g2.DrawImage(a, 0, -100,1000,700);
-               g.DrawImage(pictureBox1.Image,0,0);
-               //  g.Clear(Color.White);
-               g.Dispose();
-               pictureBox1.Image = bmp;
 
+            // pictureBox1.BringToFront();
+            //  flowLayoutPanel1.BringToFront();
+
+
+            //  g.DrawImage(pictureBox1.Image,200,200,300,1200);
+            //  g.Clear(Color.White);
+            //   g.Dispose();
+
+
+            /*  Bitmap bmp3 = new Bitmap(a2, pictureBox1.Height, pictureBox1.Width);
+               Graphics  g2 = Graphics.FromImage(a);
+               g2.DrawImage(pictureBox7.Image, 0, 350, 140, 900);
+               Bbmp3 = new Bitmap(1000, 1000, g2);*/
 
             //  Graphics g = Graphics.FromImage(pictureBox1.Image);
             // pictureBox1.Image = ;
@@ -82,7 +89,7 @@ namespace KanColleViewer
             // Fill region to screen.
 
 
-            /*  Bitmap bmpPic2 = new Bitmap(this.pictureBox2.Image);
+            /* Bitmap bmpPic2 = new Bitmap(this.pictureBox2.Image);
                Graphics g2 = Graphics.FromImage(bmpPic2);
                g2.DrawImage(this.pictureBox3.Image, new Point(0, 0));
                g2.FillRegion(blueBrush, fillRegion);
@@ -94,100 +101,102 @@ namespace KanColleViewer
                  pictureBox2.Image = (Image)bmpPic1;
 
                pictureBox1.Location = new Point(200, 0);*/
+            /*    pictureBox3.Parent = pictureBox2;
+              pictureBox1.Parent = pictureBox2;
 
-             pictureBox1.Parent = pictureBox2;
-    pictureBox3.Parent = pictureBox2;
-    pictureBox4.Parent = pictureBox2;
-    pictureBox5.Parent = pictureBox2;
-    pictureBox6.Parent = pictureBox2;
-    pictureBox7.Parent = pictureBox2;
+            pictureBox4.Parent = pictureBox2;
+            pictureBox5.Parent = pictureBox2;
+            pictureBox6.Parent = pictureBox2;
+            pictureBox7.Parent = pictureBox2;*/
+         
             string[] path = new string[] {
-             System.Windows.Forms.Application.StartupPath + @"\Character\DD\hibiki1.png",
-             System.Windows.Forms.Application.StartupPath + @"\Furniture\chest\001.png",
-             System.Windows.Forms.Application.StartupPath + @"\Furniture\desk\001.png",
-             System.Windows.Forms.Application.StartupPath + @"\Furniture\floor\001.png",
-             System.Windows.Forms.Application.StartupPath + @"\Furniture\object\001.png",
-             System.Windows.Forms.Application.StartupPath + @"\Furniture\wall\001.png",
-             System.Windows.Forms.Application.StartupPath + @"\Furniture\window\001.png",
-              };
-             furniture.Type = new string[6];
-             furniture.Text  = new string[6];
-             furniture.Name  = new string[6];
-             string file = "Initial.xml";
-             XmlDocument XmlDoc = new XmlDocument();
+                     System.Windows.Forms.Application.StartupPath + @"\Character\DD\hibiki1.png",
+                     System.Windows.Forms.Application.StartupPath + @"\Furniture\chest\001.png",
+                     System.Windows.Forms.Application.StartupPath + @"\Furniture\desk\001.png",
+                     System.Windows.Forms.Application.StartupPath + @"\Furniture\floor\001.png",
+                     System.Windows.Forms.Application.StartupPath + @"\Furniture\object\001.png",
+                     System.Windows.Forms.Application.StartupPath + @"\Furniture\wall\001.png",
+                     System.Windows.Forms.Application.StartupPath + @"\Furniture\window\001.png",
+                      };
+                     furniture.Type = new string[6];
+                     furniture.Text  = new string[6];
+                     furniture.Name  = new string[6];
+                     string file = "Initial.xml";
+                     XmlDocument XmlDoc = new XmlDocument();
 
-             if (System.IO.File.Exists(file))
-             {
-                 XmlDoc.Load(file);
-                 XmlNodeList NodeList = XmlDoc.SelectNodes("/kanColleViewer/Type");
-                 int i = 0;
-                 foreach (XmlNode OneNode in NodeList)
-                 {
-
-                     if (i==0)
+                     if (System.IO.File.Exists(file))
                      {
-                         character.Type = OneNode.Attributes["type"].Value;
-                         path[0] = OneNode.Attributes["path"].Value;
-                         character.Text = XmlDoc.SelectNodes("//Name")[0].InnerText;
+                         XmlDoc.Load(file);
+                         XmlNodeList NodeList = XmlDoc.SelectNodes("/kanColleViewer/Type");
+                         int i = 0;
+                         foreach (XmlNode OneNode in NodeList)
+                         {
+
+                             if (i==0)
+                             {
+                                 character.Type = OneNode.Attributes["type"].Value;
+                                 path[0] = OneNode.Attributes["path"].Value;
+                                 character.Text = XmlDoc.SelectNodes("//Name")[0].InnerText;
+                             }
+                             else
+                             {
+                                 furniture.Type[i-1] = OneNode.Attributes["type"].Value;
+                                 path[i] = OneNode.Attributes["path"].Value;
+                                 furniture.Text[i-1] = XmlDoc.SelectNodes("//Name")[i].InnerText;
+
+                             }
+
+                             i++;
+                         }
                      }
                      else
                      {
-                         furniture.Type[i-1] = OneNode.Attributes["type"].Value;
-                         path[i] = OneNode.Attributes["path"].Value;
-                         furniture.Text[i-1] = XmlDoc.SelectNodes("//Name")[i].InnerText;
+                         XmlDeclaration xmldecl;
+                         xmldecl = XmlDoc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+                         XmlElement kanColleViewer = XmlDoc.CreateElement("kanColleViewer");
+                         XmlDoc.AppendChild(kanColleViewer);
+                         XmlDoc.InsertBefore(xmldecl, kanColleViewer);
+
+                         string[] type_xml = new string[] {"DD","chest","desk","floor","object","wall","window"};
+                         string[] name_xml = new string[] {"響","001", "001", "001", "001", "001", "001" };
+                         for (int i = 0; i < 7; i++)
+                         {
+                             XmlElement type = XmlDoc.CreateElement("Type");
+                             type.SetAttribute("type", type_xml[i]);
+                             type.SetAttribute("path", path[i]);
+                             kanColleViewer.AppendChild(type);
+                             XmlElement name = XmlDoc.CreateElement("Name");
+                             name.InnerText = name_xml[i];
+                             type.AppendChild(name);
+                         }
+
+                         XmlDoc.Save(@"C:\Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\" + "Initial.xml");
 
                      }
 
-                     i++;
-                 }
-             }
-             else
-             {
-                 XmlDeclaration xmldecl;
-                 xmldecl = XmlDoc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-                 XmlElement kanColleViewer = XmlDoc.CreateElement("kanColleViewer");
-                 XmlDoc.AppendChild(kanColleViewer);
-                 XmlDoc.InsertBefore(xmldecl, kanColleViewer);
+                     for (int i=0; i < 7; i++)
+                     {
+                         string[] image_temp = new string[2];
+                         if (i == 0)
+                         {
+                             image_temp[0] = Path.GetFileNameWithoutExtension(path[i]);
+                             image_temp[1] = character.Text;
 
-                 string[] type_xml = new string[] {"DD","chest","desk","floor","object","wall","window"};
-                 string[] name_xml = new string[] {"響","001", "001", "001", "001", "001", "001" };
-                 for (int i = 0; i < 7; i++)
-                 {
-                     XmlElement type = XmlDoc.CreateElement("Type");
-                     type.SetAttribute("type", type_xml[i]);
-                     type.SetAttribute("path", path[i]);
-                     kanColleViewer.AppendChild(type);
-                     XmlElement name = XmlDoc.CreateElement("Name");
-                     name.InnerText = name_xml[i];
-                     type.AppendChild(name);
-                 }
+                             picture_image(character.Type, path[i], image_temp);
+                         }
+                         else
+                         {
+                             image_temp[0] = Path.GetFileNameWithoutExtension(path[i]);
+                             image_temp[1] = furniture.Text[i-1];
+                             picture_image(furniture.Type[i-1], path[i], image_temp);
+                         }
+                     }
 
-                 XmlDoc.Save(@"C:\Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\" + "Initial.xml");
-
-             }
-
-             for (int i=0; i < 7; i++)
-             {
-                 string[] image_temp = new string[2];
-                 if (i == 0)
-                 {
-                     image_temp[0] = Path.GetFileNameWithoutExtension(path[i]);
-                     image_temp[1] = character.Text;
-
-                     picture_image(character.Type, path[i], image_temp);
-                 }
-                 else
-                 {
-                     image_temp[0] = Path.GetFileNameWithoutExtension(path[i]);
-                     image_temp[1] = furniture.Text[i-1];
-                     picture_image(furniture.Type[i-1], path[i], image_temp);
-                 }
-             }
-
-             InitializeTime();
-             mediaplay = new Thread(new ParameterizedThreadStart(music_play));
-             mediaplay.Start(character.Text);
-           pictureBox1.Image = bmp;
+                     InitializeTime();
+                     mediaplay = new Thread(new ParameterizedThreadStart(music_play));
+                     mediaplay.Start(character.Text);
+            //pictureBox2.Image = bmp;
+            pictureBox1.Parent = pictureBox8;
         }
 
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -356,11 +365,14 @@ namespace KanColleViewer
         private void picture_image(string type, string image_path, string[] image_temp)
         {
             System.IO.FileStream fs = System.IO.File.OpenRead(image_path);
-
+          
             switch (type)
             {
                 case "chest":
                     pictureBox5.Image = Image.FromStream(fs);
+
+                  
+
                     furniture.Type[0]= type;
                     furniture.Name[0]= image_temp[0];
                     furniture.Text[0]= image_temp[1];
@@ -376,18 +388,22 @@ namespace KanColleViewer
                     furniture.Type[2] = type;
                     furniture.Name[2] = image_temp[0];
                     furniture.Text[2] = image_temp[1];
-                    a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\002.png");
-                    a = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\wall\009.png");
+                    /*   a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\002.png");
+                       a = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\wall\009.png");
 
-                    Bitmap bmp = new Bitmap(pictureBox3.Image, 1000, 1000);
-                    Graphics g2 = Graphics.FromImage(bmp);
-                    Graphics g = Graphics.FromImage(bmp);
-                    // g2.DrawImage(a, 0, -100, 1000, 700);
-                    g.DrawImage(pictureBox1.Image, 0, 0);
-                    g2.DrawImage(pictureBox2.Image, 0, 0);
-                    //  g.Clear(Color.White);
-                    //g.Dispose();
-                    pictureBox1.Image = bmp;
+                       Bitmap bmp = new Bitmap(pictureBox3.Image, 2000,2000);
+                       Graphics g2 = Graphics.FromImage(bmp);
+                       Graphics g = Graphics.FromImage(bmp);
+                       // g2.DrawImage(a, 0, -100, 1000, 700);
+                       g.DrawImage(pictureBox1.Image, 0, 0);
+
+                       //  g.Clear(Color.White);
+                       //g.Dispose();
+                       pictureBox1.Image = bmp;
+                       g.DrawImage(pictureBox2.Image, 0, -100, 1000, 700);
+                       pictureBox2.Image = bmp;*/
+
+                    
                     break;
                 case "object":
                     pictureBox6.Image = Image.FromStream(fs);
@@ -400,24 +416,27 @@ namespace KanColleViewer
                     furniture.Type[4] = type;
                     furniture.Name[4] = image_temp[0];
                     furniture.Text[4] = image_temp[1];
-                    a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\002.png");
-                    a = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\wall\009.png");
+                    /*    a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\002.png");
+                        a = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\wall\009.png");
 
-                     bmp = new Bitmap(a2, 1000, 1000);
-                    // Graphics g2 = Graphics.FromImage(pictureBox2.Image);
-                   g = Graphics.FromImage(bmp);
-                    // g2.DrawImage(a, 0, -100, 1000, 700);
-                    g.DrawImage(pictureBox1.Image, 0, 0);
-                    g.DrawImage(pictureBox2.Image, 0, 0);
-                    //  g.Clear(Color.White);
-                    //g.Dispose();
-                    pictureBox1.Image = bmp;
+                         bmp = new Bitmap(a2, 1000, 1000);
+                        // Graphics g2 = Graphics.FromImage(pictureBox2.Image);
+                       g = Graphics.FromImage(bmp);
+                        // g2.DrawImage(a, 0, -100, 1000, 700);
+                        g.DrawImage(pictureBox1.Image, 0, 0);
+                        g.DrawImage(pictureBox2.Image, 0, -100,1000,700);
+                        //  g.Clear(Color.White);
+                        //g.Dispose();
+                        pictureBox1.Image = bmp;*/
+
+                 
                     break;
                 case "window":
                     pictureBox4.Image = Image.FromStream(fs);
                     furniture.Type[5] = type;
                     furniture.Name[5] = image_temp[0];
                     furniture.Text[5] = image_temp[1];
+
                     break;
                 default:
                     pictureBox1.Image = Image.FromStream(fs);
@@ -426,21 +445,34 @@ namespace KanColleViewer
                     character.Text = image_temp[1];
                     mediaplay = new Thread(new ParameterizedThreadStart(music_play));
                     mediaplay.Start(image_temp[1]);
-                    a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\002.png");
+                 /*   a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\002.png");
                     a = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\wall\009.png");
 
                      bmp = new Bitmap(a2, 1000, 1000);
                     // Graphics g2 = Graphics.FromImage(pictureBox2.Image);
                     g = Graphics.FromImage(bmp);
                     // g2.DrawImage(a, 0, -100, 1000, 700);
-                    g.DrawImage(pictureBox2.Image, 0, 0);
-                    g.DrawImage(pictureBox1.Image, 0, 0);
+                  //  g.DrawImage(pictureBox2.Image, 0, -100, 1000, 700);
+                   g.DrawImage(pictureBox1.Image, 0, 0);
                     //  g.Clear(Color.White);
                     //g.Dispose();
-                    pictureBox1.Image = bmp;
+                    pictureBox1.Image = bmp;*/
                     break;
             }
+            a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\003.png");
+            // Image a3 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\003.png");
+            Bitmap bmp = new Bitmap(a2, pictureBox8.Height, pictureBox8.Width);
 
+            // bmp.SetPixel(Xcount, Ycount);
+            Graphics g = Graphics.FromImage(bmp);
+            g.DrawImage(pictureBox3.Image, 0, 700, pictureBox8.Width, 500);
+            g.DrawImage(pictureBox2.Image, -150, 0, pictureBox8.Width, (int)(pictureBox8.Height * 1.7));
+            g.DrawImage(pictureBox4.Image, 110, 0, 300, 850);
+            g.DrawImage(pictureBox5.Image, 390, -100, 190, 1100);
+            g.DrawImage(pictureBox6.Image, 0, 0, 90, 300);
+            g.DrawImage(pictureBox7.Image, -10, 300, 200, 900);
+
+            pictureBox8.Image = bmp;
             fs.Close();
         }
 
@@ -459,7 +491,7 @@ namespace KanColleViewer
             picture_image(btn_select.Type, image_path, image_temp);
             xml_updata(btn_select.Type, image_path);
 
-         
+          
 
         }
 
@@ -489,24 +521,14 @@ namespace KanColleViewer
         {
             
             mediaplay = new Thread(new ParameterizedThreadStart(music_play));
-            mediaplay.Start(character.Text);
+           mediaplay.Start(character.Text);
 
             select_picture(@"\Character", character.Type);
         }
 
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
-            a2 = Image.FromFile(@"C: \Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Furniture\floor\002.png");
-          //  pictureBox1.Image = Image.FromFile(@"C:\Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Character\DD\akatsuki1.png");
-            Bitmap bmp = new Bitmap(a2, 1000, 1000);
-            Graphics g2 = Graphics.FromImage(bmp);
-            Graphics g = Graphics.FromImage(bmp);
-            g2.DrawImage(a, 0, -100, 1000, 700);
-            g.DrawImage(pictureBox1.Image, 0, 0);
-            
-            pictureBox1.Image = bmp;
-          //  pictureBox1.Image = Image.FromFile(@"C:\Users\foryou\Documents\Visual Studio 2015\Projects\KanColleViewer\KanColleViewer\bin\Debug\Character\DD\akatsuki1.png");
-           // g.Dispose();
+         
             select_picture(@"\Furniture", "wall");
         }
 
@@ -593,6 +615,11 @@ namespace KanColleViewer
                 axWindowsMediaPlayer1.URL = folderName3;
             }
 
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+            select_picture(@"\Furniture", "wall");
         }
     }
     public class Character
