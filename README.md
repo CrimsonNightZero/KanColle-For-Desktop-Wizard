@@ -1,0 +1,1 @@
+# KanColle-For-Desktop-Wizard
