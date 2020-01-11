@@ -15,6 +15,10 @@ KanColle-For-Desktop-Wizard
 
 此專案自從KanColle簽名檔資料庫網站改版後已沒繼續維護了。
 
+Python爬蟲擷取網站KanColle簽名檔資料庫，文字經英中轉換，圖片、語音截錄下來後，利用C#做成Windows桌面精靈。
+
+主要功能有報時功能、觸碰語音。
+
 Program summary
 -----------------
 
@@ -22,6 +26,4 @@ Program summary
 
 * 英中文轉換擷取 : https://zh.moegirl.org/zh-tw/
 
-* Python爬蟲擷取網站KanColle簽名檔資料庫，文字經英中轉換，圖片、語音截錄下來後，利用C#做成Windows桌面精靈。
 
-* 主要功能有報時功能、觸碰語音。
